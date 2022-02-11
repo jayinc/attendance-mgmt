@@ -38,19 +38,19 @@ process.on("SIGINT", function () {
 
 // ** Schema for Student Collection ** //
 const studentSchema = new mongoose.Schema({
-  studentName: string,
-  studentEmail: string,
-  studentRoll: string,
-  studentClass: string,
+  studentName: String,
+  studentEmail: String,
+  studentRoll: String,
+  studentClass: String,
   createdOn: { type: Date, default: Date.now },
 });
 export const student = mongoose.model("student", studentSchema);
 
 // ** Schema for Attendance Collection ** //
 const attendanceSchema = new mongoose.Schema({
-  studentId: string,
-  studentName: string,
-  isPresent: boolean,
+  studentId: String,
+  studentName: String,
+  isPresent: Boolean,
   createdOn: { type: Date, default: Date.now },
 });
 export const attendance = mongoose.model("attendance", attendanceSchema);

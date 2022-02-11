@@ -7,27 +7,21 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Create & Save newStudent function.
-let newStudent = new student({
-  studentName: req.body.studentName,
-  studentEmail: req.body.studentEmail,
-  studentRoll: req.body.studentRoll,
-  studentClass: req.body.studentClass,
-});
-
-newStudent.save((err, saved) => {
-  if (!err) {
-    req.send("Student profile created 🥳");
-  } else {
-    resizeBy.status(500).send("Something went wrong. Please try later.");
-  }
-});
-
 //  HTTP Requests
 
-//GET Request at Website root
-app.checkout("/", (req, res) => {
+// GET Request at Website root
+app.get("/", (req, res) => {
   res.send(`Hola! I'm your Server.`);
+});
+
+app.get("/students", (req, res) => {
+  student.find({}, (err, data) => {
+    if (!err) {
+      return res.send(data);
+    } else {
+      return res.send("something went wrong");
+    }
+  });
 });
 
 //POST Request to Create newStudent
@@ -38,7 +32,7 @@ app.post("/student", (req, res) => {
     !req.body.studentRoll ||
     !req.body.studentClass
   ) {
-    res.status(400).send(`All parameters are required in JSON body,
+    res.send(`All parameters are required in JSON body,
           e.g:
           {
                studentName: "John Doe.",
@@ -58,10 +52,14 @@ app.post("/student", (req, res) => {
     if (!e) {
       res.send("Student profile created 🥳");
     } else {
-      res.status(500).send("Something went wrong! Try later.");
+      res.send("Something went wrong! Try later.");
     }
   });
 });
 
-//GET Request to Get List of allStudents
-app.get("/studentlist", (req, res) => {});
+// POST Attendance Request
+app.post;
+
+app.listen(3000, () => {
+  console.log("server is running");
+});
